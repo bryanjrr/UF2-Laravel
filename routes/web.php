@@ -20,12 +20,14 @@ Route::get('/', function () {
 });
 
 Route::middleware('year')->group(function () {
-    Route::get('/', [FilmController::class, "countFilm"])->name('countFilm');
-
+    /*     Route::get('/', [FilmController::class, "countFilm"])->name('countFilm');
+ */
     Route::group(['prefix' => 'filmout'], function () {
         // Routes included with prefix "filmout"
         Route::get('oldFilms/{year?}', [FilmController::class, "listOldFilms"])->name('oldFilms');
         Route::get('newFilms/{year?}', [FilmController::class, "listNewFilms"])->name('newFilms');
         Route::get('films/{year?}/{genre?}', [FilmController::class, "listFilms"])->name('listFilms');
+        Route::get('filmsByYear /{year?}', [FilmController::class, "listFilms"])->name('listFilms');
+        Route::get('filmsByGenre /{genre?}', [FilmController::class, "listFilms"])->name('listFilms');
     });
 });
