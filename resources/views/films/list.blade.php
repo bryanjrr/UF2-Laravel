@@ -15,7 +15,7 @@
                 @break
             @endforeach
         </tr>
-
+        
         @foreach($films as $film)
             <tr>
                 <td>{{$film['name']}}</td>
