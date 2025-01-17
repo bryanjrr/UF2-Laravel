@@ -115,12 +115,14 @@ class FilmController extends Controller
             return view('films.list', ["films" => $films, "title" => $title]);
 
         //list based on year or genre informed
-         foreach ($films as $film) {
+        /* foreach ($films as $film) {
             if ((!is_null($year)) && $film['year'] == $year) {
                 $title = "Listado de todas las pelis filtrado x año";
                 $films_filtered[] = $film;
             }
-        } 
+        } */
+
+        
         return view("films.list", ["films" => $films_filtered, "title" => $title]);
     }
 
