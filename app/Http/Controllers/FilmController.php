@@ -54,6 +54,7 @@ class FilmController extends Controller
         }
         return view('films.list', ["films" => $new_films, "title" => $title]);
     }
+
     /**
      * Lista TODAS las películas o filtra x año o categoría.
      */
@@ -151,4 +152,13 @@ class FilmController extends Controller
             "films" => $films 
         ]);
     }
+
+    public function registrarFilm(){
+        $pelicula = new Film();
+    }
+
+
+
+
 }
+
