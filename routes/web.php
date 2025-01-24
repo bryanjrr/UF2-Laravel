@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FilmController;
 use App\Http\Middleware\ValidateYear;
+use App\Http\Middleware\ValidateUrl;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,5 +33,11 @@ Route::middleware('year')->group(function () {
         Route::get('countFilm/', action: [FilmController::class, "countFilm"])->name('countFilm');
         Route::post('/image/save', 'App\Http\Controllers\ImageController@save')->name('image.save');
         Route::resource('films', FilmController::class);
+    });
+});
+
+Route::middleware('url')->group(function () {
+    Route::group(['prefix' => 'filmin'], function () {
+        Route::post('createFilm', [FilmController::class, "createFilm"])->name('createFilm');
     });
 });
