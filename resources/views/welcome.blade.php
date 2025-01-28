@@ -39,7 +39,7 @@
         </div>
         <div class="mb-3">
             <label for="genre" class="form-label">Género</label>
-            <input type="text" id="genre" name="genre " class="form-control" required>
+            <input type="text" id="genre" name="genre" class="form-control" required>
         </div>
         <div class="mb-3">
             <label for="country" class="form-label">País</label>
@@ -47,13 +47,19 @@
         </div>
         <div class="mb-3">
             <label for="duration" class="form-label">Duración</label>
-            <input type="text" id="duration" name="durat
-                ion" class="form-control" required>
+            <input type="text" id="duration" name="duration" class="form-control" required>
         </div>
         <div class="mb-3">
             <label for="image_url" class="form-label">Imagen URL</label>
-            <input type="url" id="image_url" name="image_url" class="form-control">
+            <input type="text" id="image_url" name="image_url" class="form-control">
         </div> <button type="submit" class="btn btn-primary">Enviar</button>
+
+        @if ($errors->has('errors'))
+            <div>{{$errors->first('errors')}}</div>
+
+        @endif
+
+
     </form>
 
 

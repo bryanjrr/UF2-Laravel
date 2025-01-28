@@ -163,25 +163,23 @@ class FilmController extends Controller
                 return true;
             }
         }
-
         return false;
     }
 
 
     public function createFilm(Request $request)
     {
-
         $title = "Crear Film";
         $films = FilmController::readFilms();
         $name = $request->input("name");
-        /*        if (!$this->isFilm($name)) {
-            return redirect('/');
-        } */
         $year = $request->input("year");
         $genre = $request->input("genre");
         $country = $request->input("country");
         $duration = $request->input("duration");
         $url = $request->input("image_url");
+        if ($this->isFilm($name)) {
+            return redirect('/')->withErrors(['errors' => 'El nombre esta repetido']);
+        }
         $film = [
             "name" => $name,
             "year" => $year,
@@ -191,6 +189,10 @@ class FilmController extends Controller
             "img_url" => $url
         ];
         $films[] = $film;
+
+        Storage::put('/public/films.json', json_encode($films, JSON_PRETTY_PRINT));
+
+
         return view("films.list", ["films" => $films, "title" => $title]);
     }
 }

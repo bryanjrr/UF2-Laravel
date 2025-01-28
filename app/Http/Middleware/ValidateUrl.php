@@ -9,15 +9,14 @@ class ValidateUrl
 {
     public function handle(Request $request, Closure $next)
     {
-        $url = $request->route('url');
-
+       
+        $url = $request->image_url;
         $url = filter_var($url, FILTER_SANITIZE_URL);
 
-        if (!filter_var($url, FILTER_VALIDATE_URL) === false) {
+        if (filter_var($url, FILTER_VALIDATE_URL)) {
             echo ("$url es una URL valida");
         } else {
-            echo ("$url no es una URL valida");
-            return redirect('/');
+            return redirect('/')->withErrors(['errors' => 'La URL no es valida']);
         }
 
         return $next($request);
