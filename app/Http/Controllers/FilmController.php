@@ -190,7 +190,7 @@ class FilmController extends Controller
         ];
         $films[] = $film;
 
-        Storage::put('/public/films.json', json_encode($films, JSON_PRETTY_PRINT));
+        Storage::put('/public/films.json', json_encode($films, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
 
 
         return view("films.list", ["films" => $films, "title" => $title]);
