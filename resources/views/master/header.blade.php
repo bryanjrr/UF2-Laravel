@@ -12,7 +12,8 @@
 </head>
 
 <body>
-    <header class="header">
+    
+    <header class="header text-center">
         <h1>Cabezera de la Web (Master)</h1>
         <img class="imgHeader" src="/img/films.jpg" alt="Foto" style="width: 900px">
     </header>

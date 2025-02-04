@@ -14,7 +14,6 @@ class ValidateUrl
         $url = filter_var($url, FILTER_SANITIZE_URL);
 
         if (filter_var($url, FILTER_VALIDATE_URL)) {
-            echo ("$url es una URL valida");
         } else {
             return redirect('/')->withErrors(['errors' => 'La URL no es valida']);
         }

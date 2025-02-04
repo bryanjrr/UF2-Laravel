@@ -23,6 +23,8 @@ Route::get('/', function () {
 Route::middleware('year')->group(function () {
     /*     Route::get('/', [FilmController::class, "countFilm"])->name('countFilm');
  */
+
+ /* /filmout/films */
     Route::group(['prefix' => 'filmout'], function () {
         // Routes included with prefix "filmout"
         Route::get('oldFilms/{year?}', [FilmController::class, "listOldFilms"])->name('oldFilms');
@@ -32,7 +34,9 @@ Route::middleware('year')->group(function () {
         Route::get('sortFilms/', [FilmController::class, "sortFilms"])->name('sortFilms');
         Route::get('countFilm/', action: [FilmController::class, "countFilm"])->name('countFilm');
         Route::post('/image/save', 'App\Http\Controllers\ImageController@save')->name('image.save');
-        Route::resource('films', FilmController::class);
+/*         Route::resource('films', FilmController::class);
+ */        Route::get('films', action: [FilmController::class, "listFilms"])->name('listFilms');
+
     });
 });
 
