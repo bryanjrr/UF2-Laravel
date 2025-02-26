@@ -169,6 +169,7 @@ class FilmController extends Controller
 
     public function createFilm(Request $request)
     {
+        dd($request);
         $title = "Crear Film";
         $films = FilmController::readFilms();
         $name = $request->input("name");
