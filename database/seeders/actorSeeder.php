@@ -23,6 +23,7 @@ class actorSeeder extends Seeder
             DB::table('actors')->insert([
                 'name' => $faker->name(),
                 'surname' => $faker->name(),
+                'alias' => $faker->name(),
                 'birthdate' => $faker->date(),
                 'country' => $faker->country(),
                 'img_url' => $faker->imageUrl(640, 480, 'people'),
