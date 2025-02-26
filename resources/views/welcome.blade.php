@@ -39,7 +39,12 @@
         </div>
         <div class="mb-3">
             <label for="genre" class="form-label">Género</label>
-            <input type="text" id="genre" name="genre" class="form-control" required>
+            <select name="genre" id="" class="form-control" required>
+                <option value="thriller">thriller</option>
+                <option value="action">action</option>
+                <option value="drama">drama</option>
+                <option value="love ">love </option>
+            </select>
         </div>
         <div class="mb-3">
             <label for="country" class="form-label">País</label>

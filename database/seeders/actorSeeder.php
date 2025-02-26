@@ -26,8 +26,8 @@ class actorSeeder extends Seeder
                 'birthdate' => $faker->date(),
                 'country' => $faker->country(),
                 'img_url' => $faker->imageUrl(640, 480, 'people'),
-                'created_at'=> Carbon::now(),
-                'updated_at'=> Carbon::now()
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ]);
         }
     }
