@@ -144,7 +144,6 @@ class FilmController extends Controller
     {
         $title = "Cantidad de Peliculas Registradas";
         $films = FilmController::readFilms();
-
         $contador = count($films);
 
         return view("films.count", [

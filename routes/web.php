@@ -4,6 +4,7 @@ use App\Http\Controllers\FilmController;
 use App\Http\Middleware\ValidateYear;
 use App\Http\Middleware\ValidateUrl;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ActorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +25,7 @@ Route::middleware('year')->group(function () {
     /*     Route::get('/', [FilmController::class, "countFilm"])->name('countFilm');
  */
 
- /* /filmout/films */
+    /* /filmout/films */
     Route::group(['prefix' => 'filmout'], function () {
         // Routes included with prefix "filmout"
         Route::get('oldFilms/{year?}', [FilmController::class, "listOldFilms"])->name('oldFilms');
@@ -34,9 +35,9 @@ Route::middleware('year')->group(function () {
         Route::get('sortFilms/', [FilmController::class, "sortFilms"])->name('sortFilms');
         Route::get('countFilm/', action: [FilmController::class, "countFilm"])->name('countFilm');
         Route::post('/image/save', 'App\Http\Controllers\ImageController@save')->name('image.save');
-/*         Route::resource('films', FilmController::class);
- */        Route::get('films', action: [FilmController::class, "listFilms"])->name('listFilms');
-
+        /*         Route::resource('films', FilmController::class);
+ */
+        Route::get('films', action: [FilmController::class, "listFilms"])->name('listFilms');
     });
 });
 
@@ -46,3 +47,9 @@ Route::middleware('url')->group(function () {
     });
 });
 
+/* Actors Route */
+Route::group(['prefix' => 'actorout'], function () {
+    Route::get('listActors/', [ActorController::class, "listActors"])->name('listActors');
+    Route::get('countActors/', [ActorController::class, "countActors"])->name('countActors');
+    Route::get('listByDecade/{year?}', [ActorController::class, "listByDecade"])->name('listByDecade');
+});

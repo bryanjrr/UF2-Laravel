@@ -27,6 +27,24 @@
         <li><a href=/filmout/countFilm>Contar Peliculas</a></li>
     </ul>
 
+    <h1 class="mt-4">Lista de Actores</h1>
+    <li><a href=/actorout/listActors>Actores</a></li>
+    <li><a href=/actorout/countActors>Contar Actores</a></li>
+
+    <h1 class="mt-4">Buscar Actores por Criterio</h1>
+    <p>Decada de nacimiento</p>
+
+    
+        <select name="año" id="">
+            <option value="1980-1989">1980-1989</option>
+            <option value="1990-1999">1990-1999</option>
+            <option value="1920-2029">1920-2029</option>
+        </select>
+        </div> <button type="submit" class="btn btn-primary">Enviar</button>
+
+
+
+
     <form action="{{ route('createFilm') }}" method="POST">
         @csrf <!-- Protege el formulario contra ataques CSRF -->
         <div class="mb-3">
