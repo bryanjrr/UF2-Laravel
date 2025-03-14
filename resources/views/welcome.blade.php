@@ -34,17 +34,17 @@
     <h1 class="mt-4">Buscar Actores por Criterio</h1>
     <p>Decada de nacimiento</p>
 
-    
-        <select name="año" id="">
+    <form action="{{ route('listByDecade') }}" method="GET">
+        @csrf
+        <select name="year" id="">
             <option value="1980-1989">1980-1989</option>
             <option value="1990-1999">1990-1999</option>
             <option value="1920-2029">1920-2029</option>
         </select>
-        </div> <button type="submit" class="btn btn-primary">Enviar</button>
+        </div> <button type="submit" class="btn btn-primary">Buscar</button>
+    </form>
 
-
-
-
+    <h1 class="mt-4">Crear una Pelicula</h1>
     <form action="{{ route('createFilm') }}" method="POST">
         @csrf <!-- Protege el formulario contra ataques CSRF -->
         <div class="mb-3">
@@ -79,7 +79,6 @@
 
         @if ($errors->has('errors'))
             <div>{{$errors->first('errors')}}</div>
-
         @endif
 
 
