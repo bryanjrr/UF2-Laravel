@@ -176,6 +176,7 @@ class FilmController extends Controller
         $country = $request->input("country");
         $duration = $request->input("duration");
         $url = $request->input("image_url");
+        $typeInsert = $request->input("subida");
         if ($this->isFilm($name)) {
             return redirect('/')->withErrors(['errors' => 'El nombre esta repetido']);
         }

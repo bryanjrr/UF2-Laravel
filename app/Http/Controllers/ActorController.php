@@ -26,9 +26,13 @@ class ActorController extends Controller
 
     public function listByDecade(Request $request)
     {
-
         $years = explode("-",  $request->input(key: "year"));
         $actors = DB::table("actors")->whereBetween('birthdate', [$years[0] . '-01-01', $years[1] . '-12-31'])->get();
         return view("actors.list", ["actors" => $actors, "title" => "Lista de Actores por Decada " . $years[0] . " y " . $years[1]]);
+    }
+
+    public function deleteById(Request $request){
+        $delete = DB::table("actors")->where("id", $request->id)->delete();
+        return response()->json(["action" => "delete", 'status' => $delete == 1 ? "true" : "false" ]);
     }
 }

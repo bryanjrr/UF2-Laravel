@@ -39,7 +39,9 @@
         <select name="year" id="">
             <option value="1980-1989">1980-1989</option>
             <option value="1990-1999">1990-1999</option>
-            <option value="1920-2029">1920-2029</option>
+            <option value="2000-2009">2000-2009</option>
+            <option value="2010-2019">2010-2019</option>
+            <option value="2020-2029">2020-2029</option>
         </select>
         </div> <button type="submit" class="btn btn-primary">Buscar</button>
     </form>
@@ -76,7 +78,13 @@
             <label for="image_url" class="form-label">Imagen URL</label>
             <input type="text" id="image_url" name="image_url" class="form-control">
         </div> <button type="submit" class="btn btn-primary">Enviar</button>
-
+        <div class="mb-3">
+            <label for="genre" class="form-label">Donde quieres insertar?</label>
+            <select name="subida" id="" class="form-control" required>
+                <option value="json">json</option>
+                <option value="bbdd">bbdd</option>
+            </select>
+        </div>
         @if ($errors->has('errors'))
             <div>{{$errors->first('errors')}}</div>
         @endif
