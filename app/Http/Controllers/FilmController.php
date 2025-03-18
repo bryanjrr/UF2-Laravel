@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FilmController extends Controller
 {
@@ -177,20 +178,27 @@ class FilmController extends Controller
         $duration = $request->input("duration");
         $url = $request->input("image_url");
         $typeInsert = $request->input("subida");
-        if ($this->isFilm($name)) {
-            return redirect('/')->withErrors(['errors' => 'El nombre esta repetido']);
-        }
+
         $film = [
             "name" => $name,
             "year" => $year,
             "genre" => $genre,
             "country" => $country,
             "duration" => $duration,
-            "img_url" => $url
+            "img_url" => $url,
+            "created_at" =>  \Carbon\Carbon::now(), 
+            "updated_at" => \Carbon\Carbon::now(),  
         ];
         $films[] = $film;
 
-        Storage::put('/public/films.json', json_encode($films, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+        if ($typeInsert == "json") {
+            if ($this->isFilm($name)) {
+                return redirect('/')->withErrors(['errors' => 'El nombre esta repetido']);
+            }
+            Storage::put('/public/films.json', json_encode($films, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+        } else {
+            DB::table("films")->insert($film);
+        }
 
 
         return view("films.list", ["films" => $films, "title" => $title]);

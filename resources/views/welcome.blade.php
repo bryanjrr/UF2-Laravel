@@ -77,14 +77,15 @@
         <div class="mb-3">
             <label for="image_url" class="form-label">Imagen URL</label>
             <input type="text" id="image_url" name="image_url" class="form-control">
-        </div> <button type="submit" class="btn btn-primary">Enviar</button>
+        </div>
         <div class="mb-3">
-            <label for="genre" class="form-label">Donde quieres insertar?</label>
+            <label for="subida" class="form-label">Donde quieres insertar?</label>
             <select name="subida" id="" class="form-control" required>
                 <option value="json">json</option>
-                <option value="bbdd">bbdd</option>
+                <option value="bbdd">BBDD</option>
             </select>
         </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
         @if ($errors->has('errors'))
             <div>{{$errors->first('errors')}}</div>
         @endif
