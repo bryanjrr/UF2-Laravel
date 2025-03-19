@@ -179,7 +179,6 @@ class FilmController extends Controller
 
 
         $title = "Crear Film";
-        $films = FilmController::readFilms();
         $name = $request->input("name");
         $year = $request->input("year");
         $genre = $request->input("genre");
@@ -204,8 +203,11 @@ class FilmController extends Controller
                 if ($this->isFilm($name)) {
                     return redirect('/')->withErrors(['errors' => 'El nombre esta repetido']);
                 }
+                $jsonString = file_get_contents('../storage/app/public/films.json');
+                $films = json_decode($jsonString, true);
                 array_push($films, $film);
-                Storage::put('/public/films.json', json_encode($films, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+                $jsonFilms = json_encode($films, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+                file_put_contents('../storage/app/public/films.json', $jsonFilms);
                 break;
             case "bbdd":
                 DB::table("films")->insert($film);
@@ -214,6 +216,8 @@ class FilmController extends Controller
                 DB::table("films")->insert($film);
                 break;
         }
+
+        $films = FilmController::readFilms();
 
         return view("films.list", ["films" => $films, "title" => $title]);
     }
