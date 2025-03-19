@@ -14,7 +14,14 @@ class FilmController extends Controller
      */
     public static function readFilms(): array
     {
-        $films = Storage::json('/public/films.json');
+        $array = Storage::json('/public/films.json');
+        $arrayBBDD = DB::table("films")->get()->toArray();
+
+        $arrayBdd = array_map(function ($film) {
+            return (array) $film;
+        }, $arrayBBDD);
+
+        $films = array_merge($array, $arrayBdd);
         return $films;
     }
     /**
@@ -169,6 +176,8 @@ class FilmController extends Controller
 
     public function createFilm(Request $request)
     {
+
+
         $title = "Crear Film";
         $films = FilmController::readFilms();
         $name = $request->input("name");
@@ -177,7 +186,7 @@ class FilmController extends Controller
         $country = $request->input("country");
         $duration = $request->input("duration");
         $url = $request->input("image_url");
-        $typeInsert = $request->input("subida");
+
 
         $film = [
             "name" => $name,
@@ -186,20 +195,25 @@ class FilmController extends Controller
             "country" => $country,
             "duration" => $duration,
             "img_url" => $url,
-            "created_at" =>  \Carbon\Carbon::now(), 
-            "updated_at" => \Carbon\Carbon::now(),  
+            "created_at" =>  \Carbon\Carbon::now(),
+            "updated_at" => \Carbon\Carbon::now(),
         ];
-        $films[] = $film;
 
-        if ($typeInsert == "json") {
-            if ($this->isFilm($name)) {
-                return redirect('/')->withErrors(['errors' => 'El nombre esta repetido']);
-            }
-            Storage::put('/public/films.json', json_encode($films, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
-        } else {
-            DB::table("films")->insert($film);
+        switch (env('TIPO')) {
+            case "json":
+                if ($this->isFilm($name)) {
+                    return redirect('/')->withErrors(['errors' => 'El nombre esta repetido']);
+                }
+                array_push($films, $film);
+                Storage::put('/public/films.json', json_encode($films, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+                break;
+            case "bbdd":
+                DB::table("films")->insert($film);
+                break;
+            default:
+                DB::table("films")->insert($film);
+                break;
         }
-
 
         return view("films.list", ["films" => $films, "title" => $title]);
     }
