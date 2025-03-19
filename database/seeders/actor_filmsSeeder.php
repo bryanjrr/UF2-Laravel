@@ -10,7 +10,7 @@ use faker\Factory as faker;
 use Carbon\Carbon;
 
 
-class actor_filmsSeeder extends Seeder
+class Actor_filmsSeeder extends Seeder
 {
     /**
      * Run the database seeds.

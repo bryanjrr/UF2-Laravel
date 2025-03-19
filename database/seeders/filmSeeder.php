@@ -9,7 +9,7 @@ use faker\Factory as faker;
 use Carbon\Carbon;
 
 
-class filmSeeder extends Seeder
+class FilmSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -22,7 +22,7 @@ class filmSeeder extends Seeder
             DB::table('films')->insert([
                 'name' => $faker->name(),
                 'year' => $faker->year(),
-                'genre' => $faker->randomElement(['Terror', 'Ciencia Ficcion', "Thriller", "Accion"]),
+                'genre' => $faker->randomElement(['thriller', 'action', 'drama', 'love']),
                 'country' => $faker->country(),
                 'duration' => $faker->numberBetween(100, 200),
                 'img_url' => $faker->imageUrl(640, 480, 'people'),

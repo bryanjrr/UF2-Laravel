@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 use faker\Factory as faker;
 use Carbon\Carbon;
 
-class actorSeeder extends Seeder
+class ActorSeeder extends Seeder
 {
     /**
      * Run the database seeds.
