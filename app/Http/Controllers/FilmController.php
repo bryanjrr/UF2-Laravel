@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 
 class FilmController extends Controller
 {
@@ -14,7 +17,14 @@ class FilmController extends Controller
     public static function readFilms(): array
     {
         $films = Storage::json('/public/films.json');
-        return $films;
+        $filmsBBDD = DB::table('films')->get()->toArray();
+
+        $filmbdd = array_map(function ($film) {
+            return (array) $film;
+        }, $filmsBBDD);
+
+        $listFilms = array_merge($films, $filmbdd);
+        return $listFilms;
     }
     /**
      * List films older than input year 
@@ -169,30 +179,50 @@ class FilmController extends Controller
 
     public function createFilm(Request $request)
     {
-        $title = "Crear Film";
-        $films = FilmController::readFilms();
-        $name = $request->input("name");
-        $year = $request->input("year");
-        $genre = $request->input("genre");
-        $country = $request->input("country");
-        $duration = $request->input("duration");
-        $url = $request->input("image_url");
-        if ($this->isFilm($name)) {
-            return redirect('/')->withErrors(['errors' => 'El nombre esta repetido']);
-        }
+        $filmName = $request->input('name');
+        $year = $request->input('year');
+        $genre = $request->input('genre');
+        $contry = $request->input('country');
+        $duration = $request->input('duration');
+        $imageURL = $request->input('image_url');
+
+        $title = "Crear Pelicula";
+
         $film = [
-            "name" => $name,
-            "year" => $year,
-            "genre" => $genre,
-            "country" => $country,
-            "duration" => $duration,
-            "img_url" => $url
+            'name' => $filmName,
+            'year' => $year,
+            'genre' => $genre,
+            'country' => $contry,
+            'duration' => $duration,
+            'img_url' => $imageURL,
+            "created_at" => \Carbon\Carbon::now(),
+            "updated_at" => \Carbon\Carbon::now(),
         ];
-        $films[] = $film;
-
-        Storage::put('/public/films.json', json_encode($films, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
 
 
-        return view("films.list", ["films" => $films, "title" => $title]);
+        if (env('TipoInsert') == "json") {
+            if (($this->isFilm($filmName))) {
+                return redirect('/')->withErrors(['error' => 'El nombre de la película esta repetido!']);
+            }
+            $json = file_get_contents('../storage/app/public/films.json');
+            $films = json_decode($json, true);
+            array_push($films, $film);
+            $jsonResultado = json_encode($films, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+            file_put_contents('../storage/app/public/films.json', $jsonResultado);
+        } else if (env('TipoInsert') == 'bbdd') {
+            DB::table("films")->insert($film);
+        }
+        $film = FilmController::readFilms();
+        return view('films.list', ['films' => $film, 'title' => $title]);
+    }
+
+    public function destroy(Request $request)
+    {
+        if (!$request->id) {
+            throw new Exception(message: "Debes de introducir un id para poder eliminar");
+        } else {
+            dd(vars: $request->id);
+            DB::table('films')->where('id');
+        }
     }
 }

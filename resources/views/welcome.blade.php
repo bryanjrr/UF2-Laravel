@@ -27,6 +27,24 @@
         <li><a href=/filmout/countFilm>Contar Peliculas</a></li>
     </ul>
 
+   
+    <ul>
+        <li><a href=/actorrout/countActors>Contar Actores</a></li>
+        <li><a href=/actorrout/listActors>Listar Actores</a></li>
+    </ul>
+
+    <form action="{{ route('listByDecade') }}" method="GET">
+        @csrf
+        <select name="year" id="">
+            <option value="1980-1989">1980-1989</option>
+            <option value="1990-1999">1990-1999</option>
+            <option value="2000-2009">2000-2009</option>
+            <option value="2010-2019">2010-2019</option>
+            <option value="2020-2029">2020-2029</option>
+        </select>
+        </div> <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+
     <form action="{{ route('createFilm') }}" method="POST">
         @csrf <!-- Protege el formulario contra ataques CSRF -->
         <div class="mb-3">
