@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\actorController;
 use App\Http\Controllers\FilmController;
 use App\Http\Middleware\ValidateYear;
 use App\Http\Middleware\ValidateUrl;
@@ -24,7 +25,7 @@ Route::middleware('year')->group(function () {
     /*     Route::get('/', [FilmController::class, "countFilm"])->name('countFilm');
  */
 
- /* /filmout/films */
+    /* /filmout/films */
     Route::group(['prefix' => 'filmout'], function () {
         // Routes included with prefix "filmout"
         Route::get('oldFilms/{year?}', [FilmController::class, "listOldFilms"])->name('oldFilms');
@@ -34,9 +35,9 @@ Route::middleware('year')->group(function () {
         Route::get('sortFilms/', [FilmController::class, "sortFilms"])->name('sortFilms');
         Route::get('countFilm/', action: [FilmController::class, "countFilm"])->name('countFilm');
         Route::post('/image/save', 'App\Http\Controllers\ImageController@save')->name('image.save');
-/*         Route::resource('films', FilmController::class);
- */        Route::get('films', action: [FilmController::class, "listFilms"])->name('listFilms');
-
+        /*         Route::resource('films', FilmController::class);
+ */
+        Route::get('films', action: [FilmController::class, "listFilms"])->name('listFilms');
     });
 });
 
@@ -44,5 +45,11 @@ Route::middleware('url')->group(function () {
     Route::group(['prefix' => 'filmin'], function () {
         Route::post('createFilm/', [FilmController::class, "createFilm"])->name('createFilm');
     });
+});
+
+Route::group(['prefix' => 'actorrout'], function () {
+    Route::get('listActors/', [ActorController::class, "listActors"])->name('listActors');
+    Route::get('countActors/', [ActorController::class, "countActors"])->name('countActors');
+    Route::get('listByDecade/{year?}', [ActorController::class, "listByDecade"])->name('listByDecade');
 });
 
