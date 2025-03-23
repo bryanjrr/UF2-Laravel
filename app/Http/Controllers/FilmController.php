@@ -222,4 +222,18 @@ class FilmController extends Controller
         $result = DB::table('films')->where("id", $id)->delete();
         return response()->json(['accion' => 'delete', 'status' => $result == 1 ? "True" : "False"]);
     }
+
+    public function countFilmQB()
+    {
+        $title = "Cantidad de Peliculas Registradas | Query Builder";
+        $films = DB::table('films')->get()->toArray();
+
+        $contador = count($films);
+
+        return view("films.count", [
+            "contador" => $contador,
+            "title" => $title,
+            "films" => $films
+        ]);
+    }
 }
