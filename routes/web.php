@@ -34,6 +34,8 @@ Route::middleware('year')->group(function () {
         Route::get('filmsByGenre/{genre?}', [FilmController::class, "filmsByGenre"])->name('filmsByGenre');
         Route::get('sortFilms/', [FilmController::class, "sortFilms"])->name('sortFilms');
         Route::get('countFilm/', action: [FilmController::class, "countFilm"])->name('countFilm');
+        Route::get('countFilmQB/', action: [FilmController::class, "countFilmQB"])->name('countFilmQB');
+
         Route::post('/image/save', 'App\Http\Controllers\ImageController@save')->name('image.save');
         /*         Route::resource('films', FilmController::class);
  */

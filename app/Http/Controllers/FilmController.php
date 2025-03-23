@@ -225,4 +225,18 @@ class FilmController extends Controller
             DB::table('films')->where('id');
         }
     }
+
+    public function countFilmQB()
+    {
+        $title = "Cantidad de Peliculas Registradas | Query Builder";
+        $films = DB::table('films')->get()->toArray();
+
+        $contador = count($films);
+
+        return view("films.count", [
+            "contador" => $contador,
+            "title" => $title,
+            "films" => $films
+        ]);
+    }
 }
