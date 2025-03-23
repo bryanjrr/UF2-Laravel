@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ActorController;
+use App\Http\Controllers\FilmController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,3 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::delete('/deleteActor/{id}', [ActorController::class, 'deleteActors']);
+
+Route::delete('/deleteFilm/{id}', [FilmController::class, 'deleteFilm']);

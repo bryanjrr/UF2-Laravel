@@ -216,13 +216,10 @@ class FilmController extends Controller
         return view('films.list', ['films' => $film, 'title' => $title]);
     }
 
-    public function destroy(Request $request)
+
+    public function deleteFilm($id)
     {
-        if (!$request->id) {
-            throw new Exception(message: "Debes de introducir un id para poder eliminar");
-        } else {
-            dd(vars: $request->id);
-            DB::table('films')->where('id');
-        }
+        $result = DB::table('films')->where("id", $id)->delete();
+        return response()->json(['accion' => 'delete', 'status' => $result == 1 ? "True" : "False"]);
     }
 }
