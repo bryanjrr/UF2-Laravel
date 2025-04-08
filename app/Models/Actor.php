@@ -17,10 +17,14 @@ class Actor extends Model
         'birthdate',
         'country',
         'img_url'
-        ];
-        protected $hidden = [
+    ];
+    protected $hidden = [
         'created_at',
         'updated_at',
-        ];
-        
+    ];
+
+    public function films()
+    {
+        return $this->belongsToMany(Film::class);
+    }
 }
