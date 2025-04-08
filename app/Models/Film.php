@@ -18,10 +18,15 @@ class Film extends Model
         'country',
         'duration',
         'img_url'
-        ];
-        protected $hidden = [
+    ];
+    protected $hidden = [
         'created_at',
         'updated_at',
-        ];
-        
+    ];
+
+
+    public function actors()
+    {
+        return $this->belongsToMany(Actor::class);
+    }
 }

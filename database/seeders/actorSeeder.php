@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use faker\Factory as faker;
 use Carbon\Carbon;
+use App\Models\Film;
 
 class actorSeeder extends Seeder
 {
@@ -19,6 +20,6 @@ class actorSeeder extends Seeder
      */
     public function run()
     {
-        return Actor::factory()->count(10)->create();
+       return Actor::factory()->count(10)->create();
     }
 }

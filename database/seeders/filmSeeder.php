@@ -17,6 +17,6 @@ class filmSeeder extends Seeder
      */
     public function run()
     {
-        return Film::factory()->count(10)->create();
+       return Film::factory()->count(10)->create();
     }
 }
