@@ -137,7 +137,7 @@ class FilmController extends Controller
         $films = FilmController::readFilms();
 
         //if year and genre are null
-        if (is_null($genre)){
+        if (is_null($genre)) {
             return view('films.list', ["films" => $films, "title" => $title]);
         }
 
@@ -236,5 +236,11 @@ class FilmController extends Controller
             "title" => $title,
             "films" => $films
         ]);
+    }
+
+    public function FilmsWithActors()
+    {
+        $listFilms = Film::with('actors')->get();
+        return response()->json(['resultado' => $listFilms]);
     }
 }
