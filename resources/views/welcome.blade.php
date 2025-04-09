@@ -25,7 +25,7 @@
         <li><a href=/filmout/filmsByGenre>PelisPorGenero</a></li>
         <li><a href=/filmout/sortFilms>Ordenar Descentemente</a></li>
         <li><a href=/filmout/countFilm>Contar Peliculas</a></li>
-        <li><a href=/filmout/countFilmQB>Contar Peliculas | Query Builder</a></li>
+        <li><a href=/filmout/countFilmEloquent>Contar Peliculas | Eloquent</a></li>
 
     </ul>
 
