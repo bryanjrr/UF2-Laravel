@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use App\Models\Film;
 
 class FilmController extends Controller
 {
@@ -17,7 +18,7 @@ class FilmController extends Controller
     public static function readFilms(): array
     {
         $films = Storage::json('/public/films.json');
-        $filmsBBDD = DB::table('films')->get()->toArray();
+        $filmsBBDD = Film::all()->toArray();
 
         $filmbdd = array_map(function ($film) {
             return (array) $film;
@@ -136,8 +137,9 @@ class FilmController extends Controller
         $films = FilmController::readFilms();
 
         //if year and genre are null
-        if (is_null($genre))
+        if (is_null($genre)){
             return view('films.list', ["films" => $films, "title" => $title]);
+        }
 
         //list based on year or genre informed
         foreach ($films as $film) {
@@ -146,7 +148,7 @@ class FilmController extends Controller
                 $films_filtered[] = $film;
             }
         }
-        return view("films.list", ["films" => $films, "title" => $title]);
+        return view("films.list", ["films" => $films_filtered, "title" => $title]);
     }
 
 
@@ -210,7 +212,7 @@ class FilmController extends Controller
             $jsonResultado = json_encode($films, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
             file_put_contents('../storage/app/public/films.json', $jsonResultado);
         } else if (env('TipoInsert') == 'bbdd') {
-            DB::table("films")->insert($film);
+            Film::insert($film);
         }
         $film = FilmController::readFilms();
         return view('films.list', ['films' => $film, 'title' => $title]);
@@ -219,16 +221,15 @@ class FilmController extends Controller
 
     public function deleteFilm($id)
     {
-        $result = DB::table('films')->where("id", $id)->delete();
+        $result = Film::where("id", $id)->delete();
         return response()->json(['accion' => 'delete', 'status' => $result == 1 ? "True" : "False"]);
     }
 
-    public function countFilmQB()
+    public function countFilmEloquent()
     {
-        $title = "Cantidad de Peliculas Registradas | Query Builder";
-        $films = DB::table('films')->get()->toArray();
-
-        $contador = count($films);
+        $title = "Cantidad de Peliculas Registradas | Eloquent";
+        $films = Film::all();
+        $contador = Film::count();
 
         return view("films.count", [
             "contador" => $contador,
