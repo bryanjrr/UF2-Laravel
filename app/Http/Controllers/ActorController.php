@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 
+use function Laravel\Prompts\form;
 
 class ActorController extends Controller
 {
@@ -38,5 +39,12 @@ class ActorController extends Controller
     {
         $result = Actor::where("id", $id)->delete();
         return response()->json(['accion' => 'delete', 'status' => $result == 1 ? "True" : "False"]);
+    }
+
+
+    public function ActorWithFilms()
+    {
+        $listActors = Actor::with('films')->get();
+        return response()->json(['resultado' => $listActors]);
     }
 }
