@@ -22,5 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::delete('/actors/{id}', [ActorController::class, 'deleteActors']);
-
 Route::delete('/deleteFilm/{id}', [FilmController::class, 'deleteFilm']);
+Route::get('/actors', [ActorController::class, 'ActorWithFilms']);
